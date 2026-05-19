@@ -1,1 +1,16 @@
 @import "tailwindcss";
+
+:root{
+  --primary-bg: #121212;
+  --secondary-bg: #1F1F1F;
+  --text-primary: #FFFFFF;
+  --text-secondary: #B3B3B3;
+  --black-color: #000000;
+  --hover: #2A2A2A;
+  --spotify-green: #1ED760;
+}
+
+
+body{
+    background-color: black;
+}
