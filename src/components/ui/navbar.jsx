@@ -19,9 +19,9 @@ const SpotifyNavbar = () => {
 
       {/* CENTER SECTION */}
       <div className="hidden md:flex items-center justify-center flex-1 max-w-[500px] mx-4 gap-2">
-        <button className="bg-[var(--secondary-bg)] cursor-pointer p-3 rounded-full hover:scale-110 transition text-white flex items-center justify-center min-w-[48px] min-h-[48px]">
+        <Link to="/" className="bg-[var(--secondary-bg)] cursor-pointer p-3 rounded-full hover:scale-110 transition text-white flex items-center justify-center min-w-[48px] min-h-[48px]">
           <House size={25} />
-        </button>
+        </Link>
 
         {/* Search Input Bar */}
         <div className="flex items-center bg-[var(--secondary-bg)] rounded-full px-4 py-3 flex-1 group hover:bg-[#2a2a2a] transition focus-within:ring-2 focus-within:ring-white min-h-[48px]">
@@ -39,7 +39,7 @@ const SpotifyNavbar = () => {
             className="bg-transparent text-md text-white placeholder-[var(--text-secondary)] focus:outline-none w-full font-medium"
           />
           <div className="h-5 w-[1px] bg-[var(--text-secondary)] mx-3"></div>
-          <Link to="/browser">
+          <Link to="/search">
             <Disc
               className="text-[var(--text-secondary)] hover:scale-110 cursor-pointer transition"
               size={25}
@@ -63,7 +63,7 @@ const SpotifyNavbar = () => {
           Support
         </Link>
         <Link
-          to="/Download"
+          to="/download"
           className="transition text-[16px] hover:text-white hover:scale-110"
         >
           Download
@@ -71,19 +71,19 @@ const SpotifyNavbar = () => {
         <div className="h-5 w-[1px] bg-[var(--text-secondary)]"></div>{" "}
         {/* Vertical Divider */}
         <Link
-          to="/"
+          to="/installapp"
           className="hover:text-white hover:scale-105 transition flex items-center gap-1.5"
         >
           <ArrowDownCircle size={18} /> Install App
         </Link>
         <Link
-          to="/Signup"
+          to="/signup"
           className="tracking-wide transition hover:text-white hover:scale-105"
         >
           Sign up
         </Link>
         <Link
-          to="/Login"
+          to="/login"
           className="bg-white text-black px-8 py-3 rounded-full font-bold hover:scale-105 transition duration-100 text-[15px]"
         >
           Log in
@@ -136,7 +136,7 @@ const SpotifyNavbar = () => {
             Sign up
           </Link>
           <Link
-            to="Login"
+            to="login"
             className="w-full px-6 py-3 font-bold text-center text-black bg-white rounded-full cursor-pointer"
           >
             Log in
