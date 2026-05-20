@@ -1,11 +1,11 @@
 import React from 'react'
 
-const mainbody = () => {
+const Layout = () => {
   return (
     <div>
-      
+      layout
     </div>
   )
 }
 
-export default mainbody
+export default Layout

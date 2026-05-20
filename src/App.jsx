@@ -6,12 +6,14 @@ import Download from "./routes/download";
 import Signup from "./auth/signup";
 import Login from "./auth/login";
 import { Route, Routes } from "react-router-dom";
+import GuestLayout from "./layout/guestLayout";
 
 function App() {
   return (
     <div>
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/GuestLayout" element={<GuestLayout />} />
         <Route path="/premium" element={<Premium />} />
         <Route path="/search" element={<Search />} />
         <Route path="/support" element={<Support />} />
