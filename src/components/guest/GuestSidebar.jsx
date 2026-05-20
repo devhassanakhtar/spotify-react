@@ -99,8 +99,8 @@ const GuestSidebar = () => {
         </div>
 
         {/* Sidebar Footer  */}
-        <div className="mb-30">
-          <div>
+        <div className="mb-20">
+          <div className="pb-4">
             <Link to="/" className="text-xs pr-3">
               Legal
             </Link>
