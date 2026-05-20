@@ -1,5 +1,5 @@
-import Logo from "../../../assets/logo.png";
-import MobileLogo from "../../../assets/mobileLogo.png";
+import Logo from "../../assets/logo.png";
+import MobileLogo from "../../assets/mobileLogo.png";
 import React, { useState } from "react";
 import { House, Search, ArrowDownCircle, Menu, X, Disc } from "lucide-react";
 import { Link } from "react-router-dom";
@@ -8,7 +8,7 @@ const Navbar = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
-    <nav className="bg-black text-white px-4 py-2 flex items-center justify-between sticky top-0 z-50 h-[64px]">
+    <nav className="bg-black text-white px-6 py-2 flex items-center justify-between sticky top-0 z-50 h-[64px]">
       {/* LEFT SECTION */}
       <div className="hidden md:flex items-center flex-1 md:flex-initial">
         <div className="flex items-center space-x-2 cursor-pointer">
@@ -72,8 +72,8 @@ const Navbar = () => {
         >
           Download
         </Link>
-        <div className="h-5 w-[1px] bg-[var(--text-secondary)]"></div>{" "}
-        {/* Vertical Divider */}
+        <div className="h-5 w-[1px] bg-[var(--text-secondary)]"></div>
+        
         <Link
           to="/installapp"
           className="hover:text-white hover:scale-105 duration-50 flex items-center gap-1.5"
@@ -115,7 +115,7 @@ const Navbar = () => {
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
           className="text-[#b3b3b3] hover:text-white focus:outline-none"
         >
-          {mobileMenuOpen ? <X size={26} /> : <Menu size={26} />}
+          {mobileMenuOpen ? <Menu size={26} /> : <Menu size={26} />}
         </button>
       </div>
 

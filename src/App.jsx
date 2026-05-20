@@ -6,7 +6,7 @@ import Download from "./routes/download";
 import Signup from "./auth/signup";
 import Login from "./auth/login";
 import { Route, Routes } from "react-router-dom";
-import GuestLayout from "./layout/guestLayout";
+import GuestLayout from "./layout/GuestLayout";
 
 function App() {
   return (

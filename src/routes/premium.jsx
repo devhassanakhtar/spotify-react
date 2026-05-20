@@ -1,5 +1,5 @@
 import React from 'react'
-import MainNavbar from '../components/ui/navbar/MainNavbar'
+import MainNavbar from '../components/ui/MainNavbar'
 
 const premium = () => {
   return (
