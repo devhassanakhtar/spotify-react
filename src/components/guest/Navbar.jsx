@@ -12,7 +12,7 @@ const Navbar = () => {
       {/* LEFT SECTION */}
       <div className="hidden md:flex items-center flex-1 md:flex-initial">
         <div className="flex items-center space-x-2 cursor-pointer">
-          <Link to="/GuestLayout">
+          <Link to="/">
             <img src={Logo} alt="" />
           </Link>
         </div>
@@ -21,7 +21,7 @@ const Navbar = () => {
       {/* CENTER SECTION */}
       <div className="hidden md:flex items-center justify-center flex-1 max-w-[500px] mx-4 gap-2">
         <Link
-          to="/GuestLayout"
+          to="/"
           className="bg-[var(--secondary-bg)] cursor-pointer p-3 rounded-full hover:scale-110 transition text-white flex items-center justify-center min-w-[48px] min-h-[48px]"
         >
           <House size={25} />
@@ -98,7 +98,7 @@ const Navbar = () => {
 
       <div className="flex md:hidden items-center flex-1 md:flex-initial">
         <div className="flex items-center space-x-2 cursor-pointer">
-          <Link to="/GuestLayout">
+          <Link to="/">
             <img src={MobileLogo} alt="" className="w-25" />
           </Link>
         </div>
@@ -106,7 +106,7 @@ const Navbar = () => {
 
       <div className="flex items-center gap-4 lg:hidden">
         <Link
-          to="/GuestLayout"
+          to="/"
           className="text-xs hover:scale-105 duration-50 w-full px-3 py-1.5 font-bold text-center text-black bg-white rounded-full cursor-pointer"
         >
           OpenApp

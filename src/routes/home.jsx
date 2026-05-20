@@ -1,10 +1,9 @@
 import React from 'react'
-import Layout from '../layout/Layout'
 
 const home = () => {
   return (
     <div>
-      <Layout />
+      <h1 className='text-white'>Home Page</h1>
     </div>
   )
 }

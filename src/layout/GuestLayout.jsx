@@ -1,7 +1,8 @@
 import React from "react";
+import { Outlet } from "react-router-dom";
+
 import Navbar from "../components/guest/Navbar";
 import GuestSidebar from "../components/guest/GuestSidebar";
-import GuestOutlit from "../components/guest/GuestOutlit";
 import SignUpBar from "../components/ui/SignUpBar";
 
 const GuestLayout = () => {
@@ -15,7 +16,9 @@ const GuestLayout = () => {
         </div>
 
         <div className="flex-1 min-w-0 h-full">
-          <GuestOutlit />
+          <div className="h-full rounded-lg bg-[var(--primary-bg)] p-3 overflow-auto">
+            <Outlet />
+          </div>
         </div>
       </main>
 
