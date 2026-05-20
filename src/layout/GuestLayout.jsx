@@ -5,15 +5,15 @@ import GuestOutlit from "../components/guest/GuestOutlit";
 
 const GuestLayout = () => {
   return (
-    <div>
+    <div className="h-screen overflow-hidden bg-black">
       <Navbar />
 
-      <main className="flex px-4 py-2 gap-5 text-white">
-        <div className="hidden md:block  w-[400px] shrink-0">
+      <main className="flex gap-5 px-4 py-3 text-white h-[calc(100vh-80px)] overflow-hidden">
+        <div className="w-[400px] shrink-0 h-full">
           <GuestSidebar />
         </div>
 
-        <div className="flex-1 min-w-0">
+        <div className="flex-1 min-w-0 h-full">
           <GuestOutlit />
         </div>
       </main>
