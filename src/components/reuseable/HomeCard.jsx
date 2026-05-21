@@ -18,10 +18,10 @@ import Arijit from "../../assets/Artist-Images/arijit.jfif";
 import Atif from "../../assets/Artist-Images/atif.jfif";
 import Baryaan from "../../assets/Artist-Images/baryaan.jfif";
 import Dhillon from "../../assets/Artist-Images/dhillon.jfif";
-import Jain from "../../assets/Artist-Images/jain.jfif";
+import Jain from "../../assets/Artist-Images/Jain.jfif"
 import Karan from "../../assets/Artist-Images/karan.jfif";
 import Manuu from "../../assets/Artist-Images/manuu.jfif";
-import Pritam from "../../assets/Artist-Images/pritam.jfif";
+import Pritam from "../../assets/Artist-Images/Pritam.jfif";
 import Shubh from "../../assets/Artist-Images/shubh.jfif";
 
 import Album1 from "../../assets/Album-Images/Album-1.jfif";
