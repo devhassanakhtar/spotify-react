@@ -22,9 +22,9 @@ function App() {
           {/* Guest user layout */}
           <Route element={<GuestLayout />}>
             <Route path="/" element={<Home />} />
+            <Route path="/search" element={<Search />} />
           </Route>
 
-          <Route path="/search" element={<Search />} />
           <Route path="/support" element={<Support />} />
           <Route path="/download" element={<Download />} />
           <Route path="/premium" element={<Premium />} />
@@ -40,8 +40,8 @@ function App() {
           {/* Logged in user layout */}
           <Route element={<Layout />}>
             <Route path="/" element={<Home />} />
+            <Route path="/search" element={<Search />} />
           </Route>
-          <Route path="/search" element={<Search />} />
           <Route path="/premium" element={<Premium />} />
           <Route path="/support" element={<Support />} />
           <Route path="/download" element={<Download />} />

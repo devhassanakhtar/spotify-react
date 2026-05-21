@@ -33,7 +33,7 @@ const GuestSidebar = () => {
             <div ref={dropdownRef} className="relative">
               <h3
                 onClick={() => setOpen(!open)}
-                className=" flex items-center justify-between gap-2 bg-[var(--secondary-bg)] p-1 pr-5 rounded-full cursor-pointer hover:bg-[#333333] transition group"
+                className=" flex items-center justify-between gap-2 bg-[var(--secondary-bg)] p-1 lg:pr-5 rounded-full cursor-pointer hover:bg-[#333333] transition group"
               >
                 <Plus
                   size={20}
@@ -41,7 +41,7 @@ const GuestSidebar = () => {
                     open ? "rotate-45 text-white" : "rotate-0"
                   }`}
                 />
-                <span className="hidden xl:block text-sm font-bold">
+                <span className="hidden lg:block text-sm font-bold">
                   Create
                 </span>
               </h3>
