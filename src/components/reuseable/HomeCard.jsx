@@ -106,7 +106,7 @@ const HomeSection = ({ data }) => {
       <div className="flex items-center justify-between mb-4">
         <Link
           to={data.href}
-          className="text-lg md:text-2xl text-white font-bold hover:underline"
+          className="text-lg md:text-2xl text-white font-bold hover:underline pl-3"
         >
           {data.title}
         </Link>

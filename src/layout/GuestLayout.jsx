@@ -21,7 +21,7 @@ const GuestLayout = () => {
         </div>
 
         <div className="flex-1 min-w-0 h-full">
-          <div className="h-full rounded-lg bg-[var(--primary-bg)] p-3 overflow-auto custom-scrollbar">
+          <div className="h-full rounded-lg bg-[var(--primary-bg)] p-6 overflow-auto custom-scrollbar">
             <Outlet />
           </div>
         </div>
