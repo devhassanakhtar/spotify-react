@@ -33,3 +33,12 @@ body {
 .custom-scrollbar::-webkit-scrollbar-thumb:hover {
   background: #777;
 }
+
+.custom-scrollbar-trending {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.custom-scrollbar-trending::-webkit-scrollbar {
+  display: none;
+}

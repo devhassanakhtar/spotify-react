@@ -15,7 +15,7 @@ const GuestLayout = () => {
         <Navbar />
       </div>
 
-      <main className="flex gap-5 sm:px-4 sm:py-3  text-white h-[calc(100vh-80px)]">
+      <main className="flex gap-5 px-2 sm:px-4 sm:py-3  text-white h-[calc(100vh-80px)]">
         <div className="hidden md:block lg:w-[400px] md:w-[250px] shrink-0 h-full">
           <GuestSidebar />
         </div>
@@ -27,7 +27,7 @@ const GuestLayout = () => {
         </div>
       </main>
 
-      <footer className="absolute left-0 bottom-0 w-full text-white">
+      <footer className="fixed left-0 bottom-0 w-full text-white z-[9999] text-white">
         <SignUpBar />
       </footer>
     </div>

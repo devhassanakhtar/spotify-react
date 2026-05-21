@@ -8,7 +8,7 @@ const Navbar = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
-    <nav className="bg-black text-white px-6 py-2 flex items-center justify-between sticky top-0 z-50 ">
+    <nav className="bg-black text-white px-2 sm:px-6 py-4 md:py-2 flex items-center justify-between sticky top-0 z-50 ">
       {/* LEFT SECTION */}
       <div className="hidden md:flex items-center flex-1 md:flex-initial">
         <div className="flex items-center space-x-2 cursor-pointer">

@@ -1,9 +1,10 @@
 import React from 'react'
+import HomeCard from '../components/reuseable/HomeCard'
 
 const home = () => {
   return (
     <div>
-      <h1 className='text-white'>Home Page</h1>
+      <HomeCard />
     </div>
   )
 }
