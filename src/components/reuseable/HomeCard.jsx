@@ -165,7 +165,17 @@ const HomeCard = () => {
     (song) => song.category === "album" || song.type === "album",
   );
 
+  const radioSongs = songsData.filter(
+    (song) => song.category === "radio" || song.isRadio === "true",
+  );
+
+  const Feature = songsData.filter(
+    (song) => song.category === "feature" || song.isFeature === "true",
+  );
+
   const popularArtists = artistsData.filter((artist) => artist.isPopular);
+
+  // const albumSongs = songsData.filter((song) => song.isAlbumSingle === true);
 
   const sections = [
     {
@@ -188,6 +198,20 @@ const HomeCard = () => {
       href: "/",
       type: "album",
       cards: albumSongs,
+    },
+    {
+      id: 4,
+      title: "Popular radio",
+      href: "/",
+      type: "radio",
+      cards: radioSongs,
+    },
+    {
+      id: 5,
+      title: "Featured Chats",
+      href: "/",
+      type: "feature",
+      cards: Feature,
     },
   ];
 
