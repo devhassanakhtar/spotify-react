@@ -31,10 +31,10 @@ import Radio8 from "../assets/Radio-Images/Radio-8.jfif";
 import Radio9 from "../assets/Radio-Images/Radio-9.jfif";
 import Radio10 from "../assets/Radio-Images/Radio-10.jfif";
 
-import Feature1 from "../assets/Feature-Images/Feature-1.jpg"
-import Feature2 from "../assets/Feature-Images/Feature-2.jpg"
-import Feature3 from "../assets/Feature-Images/Feature-3.jpg"
-import Feature4 from "../assets/Feature-Images/Feature-4.jpg"
+import Feature1 from "../assets/Feature-Images/Feature-1.jpg";
+import Feature2 from "../assets/Feature-Images/Feature-2.jpg";
+import Feature3 from "../assets/Feature-Images/Feature-3.jpg";
+import Feature4 from "../assets/Feature-Images/Feature-4.jpg";
 
 import DrakeJaniceSTFU from "../assets/songs/Drake - Janice STFU.mp3";
 import HarBaar from "../assets/songs/Har Baar.mp3";
@@ -316,7 +316,7 @@ export const songsData = [
     title: "Secario",
     slug: "secario",
     artist: "Shubh",
-    artists: ["", ""],
+    artists: ["Shubh"],
     image: Album2,
     album: "Secario",
     category: "album",
@@ -338,7 +338,7 @@ export const songsData = [
     title: "Safar",
     slug: "safar",
     artist: "Bayaan",
-    artists: ["", ""],
+    artists: ["Bayaan"],
     image: Album4,
     album: "Safar",
     category: "album",
@@ -349,7 +349,7 @@ export const songsData = [
     title: "Afsos",
     slug: "afsos",
     artist: "Anuv Jain",
-    artists: ["", ""],
+    artists: ["Anuv Jain"],
     image: Album5,
     album: "Afsos",
     category: "album",
@@ -404,7 +404,7 @@ export const songsData = [
     title: "Okay STFU",
     slug: "okay-stfu",
     artist: "AP Dhillon",
-    artists: ["", ""],
+    artists: ["AP Dhillon"],
     image: Album1,
     album: "Pal Pal",
     category: "album",
@@ -504,7 +504,11 @@ export const songsData = [
     id: 31,
     slug: "top-songs-global",
     artist: "",
-    artists: ["Your weekly update of the most played tracks right now - Global.", "", ""],
+    artists: [
+      "Your weekly update of the most played tracks right now - Global.",
+      "",
+      "",
+    ],
     image: Feature1,
     category: "feature",
     isFeature: true,
@@ -514,7 +518,11 @@ export const songsData = [
     id: 32,
     slug: "top-songs-pakistan",
     artist: "",
-    artists: ["Your weekly update of the most played tracks right now - Pakistan.", "", ""],
+    artists: [
+      "Your weekly update of the most played tracks right now - Pakistan.",
+      "",
+      "",
+    ],
     image: Feature2,
     category: "feature",
     isFeature: true,
@@ -524,7 +532,11 @@ export const songsData = [
     id: 33,
     slug: "top-50-global",
     artist: "",
-    artists: ["Your daily update of the most played tracks right now - Global.", "", ""],
+    artists: [
+      "Your daily update of the most played tracks right now - Global.",
+      "",
+      "",
+    ],
     image: Feature3,
     category: "feature",
     isFeature: true,
@@ -534,11 +546,14 @@ export const songsData = [
     id: 34,
     slug: "top-50-pakistan",
     artist: "",
-    artists: ["Your daily update of the most played tracks right now - Pakistan.", "", ""],
+    artists: [
+      "Your daily update of the most played tracks right now - Pakistan.",
+      "",
+      "",
+    ],
     image: Feature4,
     category: "feature",
     isFeature: true,
     description: "",
   },
-  
 ];

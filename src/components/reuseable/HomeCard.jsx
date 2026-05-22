@@ -2,17 +2,26 @@ import React, { useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { Play, ChevronLeft, ChevronRight } from "lucide-react";
 
-import { songsData } from "../../data/songsData";
+import { playlistsData } from "../../data/playlistsData";
 import { artistsData } from "../../data/artistData";
+import { songsData } from "../../data/songsData";
+import { usePlayer } from "../../context/PlayerContext";
 
 const HomeSection = ({ data }) => {
   const scrollRef = useRef(null);
+  const { playPlaylist } = usePlayer();
 
   const [isDragging, setIsDragging] = useState(false);
   const [startX, setStartX] = useState(0);
   const [scrollStart, setScrollStart] = useState(0);
 
   const hideScrollButtons = data.type === "charts";
+
+  const limitText = (text, maxLength = 45) => {
+    if (!text) return "";
+
+    return text.length > maxLength ? text.slice(0, maxLength) + "..." : text;
+  };
 
   const scrollLeft = () => {
     if (!scrollRef.current) return;
@@ -55,10 +64,41 @@ const HomeSection = ({ data }) => {
     setIsDragging(false);
   };
 
-  const limitText = (text, maxLength = 45) => {
-    if (!text) return "";
+  const getCardLink = (card) => {
+    if (data.type === "playlist") return `/playlist/${card.slug}`;
+    if (data.type === "artist") return `/artist/${card.slug}`;
+    return `/playlist/${card.slug || card.id}`;
+  };
 
-    return text.length > maxLength ? text.slice(0, maxLength) + "..." : text;
+  const getCardTitle = (card) => {
+    return card.title || card.name || "";
+  };
+
+  const getCardDescription = (card) => {
+    return (
+      card.description ||
+      card.artists?.join(", ") ||
+      card.artist ||
+      card.type ||
+      ""
+    );
+  };
+
+  const handlePlayClick = (e, card) => {
+    e.preventDefault();
+    e.stopPropagation();
+
+    if (card.songs) {
+      playPlaylist(card.songs);
+      return;
+    }
+
+    if (card.src) {
+      playPlaylist([card]);
+      return;
+    }
+
+    console.log("This card has no playable songs");
   };
 
   return (
@@ -108,7 +148,8 @@ const HomeSection = ({ data }) => {
         }`}
       >
         {data.cards.map((card) => (
-          <div
+          <Link
+            to={getCardLink(card)}
             key={card.id}
             className="group min-w-[43%] w-[43%] sm:min-w-[180px] sm:w-[180px] cursor-pointer rounded-md"
           >
@@ -116,36 +157,32 @@ const HomeSection = ({ data }) => {
               <div className="relative">
                 <img
                   src={card.image}
-                  alt={card.title || card.name || data.title}
+                  alt={getCardTitle(card)}
                   draggable="false"
                   className={`w-full aspect-square object-cover pointer-events-none ${
                     data.type === "artist" ? "rounded-full" : "rounded-md"
                   }`}
                 />
 
-                <div className="absolute bottom-2 right-2 translate-y-2 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300 flex shadow-lg cursor-pointer hover:scale-105 hover:bg-[#62d68b] items-center justify-center rounded-full bg-[var(--spotify-green)] w-10 h-10 sm:w-12 sm:h-12">
-                  <Play color="black" fill="black" size={22} />
-                </div>
+                {data.type !== "artist" && (
+                  <button
+                    onClick={(e) => handlePlayClick(e, card)}
+                    className="absolute bottom-2 right-2 translate-y-2 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300 flex shadow-lg cursor-pointer hover:scale-105 hover:bg-[#62d68b] items-center justify-center rounded-full bg-[var(--spotify-green)] w-10 h-10 sm:w-12 sm:h-12"
+                  >
+                    <Play color="black" fill="black" size={22} />
+                  </button>
+                )}
               </div>
 
               <h2 className="text-white font-bold mt-2 line-clamp-2">
-                {limitText(card.title || card.name, 45)}
+                {limitText(getCardTitle(card), 45)}
               </h2>
 
               <p className="text-[var(--text-secondary)] text-sm font-semibold line-clamp-2">
-                {limitText(
-                  card.artists?.join(", ") || card.artist || card.type,
-                  60,
-                )}
+                {limitText(getCardDescription(card), 60)}
               </p>
-
-              {/* {card.album && (
-                <p className="text-[var(--text-secondary)] text-sm font-semibold">
-                  {limitText(card.album, 45)}
-                </p>
-              )} */}
             </div>
-          </div>
+          </Link>
         ))}
       </div>
     </div>
@@ -153,37 +190,23 @@ const HomeSection = ({ data }) => {
 };
 
 const HomeCard = () => {
-  const trendingSongs = songsData.filter(
-    (song) => song.isTrending === true || song.category === "trending",
-  );
-
-  const popularSongs = songsData.filter(
-    (song) => song.isPopular === true || song.category === "popular",
-  );
-
-  const albumSongs = songsData.filter(
-    (song) => song.category === "album" || song.type === "album",
-  );
-
-  const radioSongs = songsData.filter(
-    (song) => song.category === "radio" || song.isRadio === "true",
-  );
-
-  const Feature = songsData.filter(
-    (song) => song.category === "feature" || song.isFeature === "true",
+  const featuredPlaylists = playlistsData.filter(
+    (playlist) => playlist.isFeatured
   );
 
   const popularArtists = artistsData.filter((artist) => artist.isPopular);
 
-  // const albumSongs = songsData.filter((song) => song.isAlbumSingle === true);
+  const albumSingles = songsData.filter((song) => song.isAlbumSingle);
+
+  const radioSongs = songsData.filter((song) => song.isRadio);
 
   const sections = [
     {
       id: 1,
-      title: "Trending songs",
+      title: "Featured Playlists",
       href: "/",
       type: "playlist",
-      cards: trendingSongs,
+      cards: featuredPlaylists,
     },
     {
       id: 2,
@@ -197,7 +220,7 @@ const HomeCard = () => {
       title: "Popular albums and singles",
       href: "/",
       type: "album",
-      cards: albumSongs,
+      cards: albumSingles,
     },
     {
       id: 4,
@@ -205,13 +228,6 @@ const HomeCard = () => {
       href: "/",
       type: "radio",
       cards: radioSongs,
-    },
-    {
-      id: 5,
-      title: "Featured Chats",
-      href: "/",
-      type: "feature",
-      cards: Feature,
     },
   ];
 

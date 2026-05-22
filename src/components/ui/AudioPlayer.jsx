@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
   Play,
   Pause,
@@ -15,34 +15,21 @@ import {
   CirclePlus,
 } from "lucide-react";
 import Tooltip from "../reuseable/Tooltip";
+import { usePlayer } from "../../context/PlayerContext";
 
 const AudioPlayer = () => {
-  const songs = [
-    {
-      title: "Song 1",
-      artist: "Artist 1",
-      src: "/songs/song1.mp3",
-      image: "/songs/song1.jpg",
-    },
-    {
-      title: "Song 2",
-      artist: "Artist 2",
-      src: "/songs/song2.mp3",
-      image: "/songs/song2.jpg",
-    },
-    {
-      title: "Song 3",
-      artist: "Artist 3",
-      src: "/songs/song3.mp3",
-      image: "/songs/song3.jpg",
-    },
-  ];
+  const {
+    audioRef,
+    currentSong,
+    queue,
+    isPlaying,
+    setIsPlaying,
+    playPause,
+    nextSong,
+    previousSong,
+  } = usePlayer();
 
-  const audioRef = useRef(null);
   const progressRef = useRef(null);
-
-  const [currentSong, setCurrentSong] = useState(0);
-  const [isPlaying, setIsPlaying] = useState(false);
 
   const [volume, setVolume] = useState(0.7);
   const [previousVolume, setPreviousVolume] = useState(0.7);
@@ -54,7 +41,20 @@ const AudioPlayer = () => {
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
 
-  const currentSongData = songs[currentSong];
+  const defaultSong = {
+    title: "Choose a song",
+    artist: "No song playing",
+    image: "",
+    src: "",
+  };
+
+  const currentSongData = currentSong || defaultSong;
+
+  useEffect(() => {
+    if (!audioRef.current) return;
+
+    audioRef.current.loop = loop;
+  }, [loop, audioRef]);
 
   const formatTime = (time) => {
     if (!time || isNaN(time)) return "0:00";
@@ -63,60 +63,6 @@ const AudioPlayer = () => {
     const seconds = Math.floor(time % 60);
 
     return `${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
-  };
-
-  const playPauseHandler = async () => {
-    if (!audioRef.current) return;
-
-    if (isPlaying) {
-      audioRef.current.pause();
-      setIsPlaying(false);
-    } else {
-      await audioRef.current.play();
-      setIsPlaying(true);
-    }
-  };
-
-  const playSelectedSong = (index) => {
-    setCurrentSong(index);
-    setIsPlaying(true);
-
-    setTimeout(() => {
-      if (!audioRef.current) return;
-
-      audioRef.current.volume = volume;
-      audioRef.current.play();
-    }, 100);
-  };
-
-  const nextSongHandler = () => {
-    let nextIndex;
-
-    if (shuffle) {
-      nextIndex = Math.floor(Math.random() * songs.length);
-
-      if (songs.length > 1 && nextIndex === currentSong) {
-        nextIndex = (nextIndex + 1) % songs.length;
-      }
-    } else {
-      nextIndex = currentSong + 1;
-
-      if (nextIndex >= songs.length) {
-        nextIndex = 0;
-      }
-    }
-
-    playSelectedSong(nextIndex);
-  };
-
-  const previousSongHandler = () => {
-    let prevIndex = currentSong - 1;
-
-    if (prevIndex < 0) {
-      prevIndex = songs.length - 1;
-    }
-
-    playSelectedSong(prevIndex);
   };
 
   const volumeHandler = (e) => {
@@ -158,14 +104,6 @@ const AudioPlayer = () => {
     }
   };
 
-  const loopHandler = () => {
-    setLoop(!loop);
-  };
-
-  const shuffleHandler = () => {
-    setShuffle(!shuffle);
-  };
-
   const timeUpdateHandler = () => {
     if (!audioRef.current) return;
 
@@ -192,8 +130,16 @@ const AudioPlayer = () => {
 
   const songEndedHandler = () => {
     if (!loop) {
-      nextSongHandler();
+      nextSong();
     }
+  };
+
+  const shuffleHandler = () => {
+    setShuffle(!shuffle);
+  };
+
+  const loopHandler = () => {
+    setLoop(!loop);
   };
 
   const progressPercent = duration ? (currentTime / duration) * 100 : 0;
@@ -207,45 +153,42 @@ const AudioPlayer = () => {
         onEnded={songEndedHandler}
         onTimeUpdate={timeUpdateHandler}
         onLoadedMetadata={loadedMetadataHandler}
+        onPlay={() => setIsPlaying(true)}
+        onPause={() => setIsPlaying(false)}
       />
 
       <div className="h-full grid grid-cols-[1fr_auto_1fr] items-center gap-4">
-        {/* Left Song Info */}
         <div className="flex items-center gap-3 min-w-0">
-          <img
-            src={currentSongData.image}
-            alt={currentSongData.title}
-            className="w-14 h-14 rounded object-cover bg-[#282828]"
-            onError={(e) => {
-              e.currentTarget.style.display = "none";
-            }}
-          />
+          {currentSongData.image ? (
+            <img
+              src={currentSongData.image}
+              alt={currentSongData.title}
+              className="w-14 h-14 rounded object-cover bg-[#282828]"
+            />
+          ) : (
+            <div className="w-14 h-14 rounded bg-[#282828]"></div>
+          )}
 
           <div className="min-w-0">
             <h3 className="text-sm font-semibold truncate">
               {currentSongData.title}
             </h3>
+
             <p className="text-xs text-[#b3b3b3] truncate hover:text-white hover:underline cursor-pointer">
-              {currentSongData.artist}
+              {currentSongData.artists?.join(", ") || currentSongData.artist}
             </p>
           </div>
+
           <Tooltip text={"Add to playlist"}>
-            <button className="hidden sm:flex  text-[#b3b3b3] items-center justify-center text-sm hover:text-white hover:border-white cursor-pointer">
+            <button className="hidden sm:flex text-[#b3b3b3] items-center justify-center text-sm hover:text-white hover:border-white cursor-pointer">
               <CirclePlus size={18} />
             </button>
           </Tooltip>
         </div>
 
-        {/* Center Controls */}
         <div className="flex flex-col items-center justify-center gap-2 w-[40vw] max-w-[650px] min-w-[280px]">
           <div className="flex items-center gap-4">
-            <Tooltip
-              text={
-                Shuffle
-                  ? `Enable Shuffle for ${currentSongData.title}`
-                  : `Disable Shuffle for ${currentSongData.title}`
-              }
-            >
+            <Tooltip text={shuffle ? "Disable shuffle" : "Enable shuffle"}>
               <button
                 onClick={shuffleHandler}
                 className={`hover:scale-105 transition ${
@@ -260,8 +203,9 @@ const AudioPlayer = () => {
 
             <Tooltip text={"Back"}>
               <button
-                onClick={previousSongHandler}
-                className="text-[#b3b3b3] hover:text-white hover:scale-105 transition cursor-pointer"
+                onClick={previousSong}
+                disabled={queue.length === 0}
+                className="text-[#b3b3b3] hover:text-white hover:scale-105 transition cursor-pointer disabled:opacity-40"
               >
                 <SkipBack size={22} fill="currentColor" />
               </button>
@@ -269,8 +213,9 @@ const AudioPlayer = () => {
 
             <Tooltip text={isPlaying ? "Pause" : "Play"}>
               <button
-                onClick={playPauseHandler}
-                className="w-9 h-9 rounded-full bg-white text-black flex items-center justify-center hover:scale-105 transition cursor-pointer"
+                onClick={playPause}
+                disabled={!currentSong}
+                className="w-9 h-9 rounded-full bg-white text-black flex items-center justify-center hover:scale-105 transition cursor-pointer disabled:opacity-40"
               >
                 {isPlaying ? (
                   <Pause size={22} fill="black" />
@@ -282,14 +227,15 @@ const AudioPlayer = () => {
 
             <Tooltip text={"Next"}>
               <button
-                onClick={nextSongHandler}
-                className="relative text-[#b3b3b3] hover:text-white hover:scale-105 transition cursor-pointer"
+                onClick={nextSong}
+                disabled={queue.length === 0}
+                className="relative text-[#b3b3b3] hover:text-white hover:scale-105 transition cursor-pointer disabled:opacity-40"
               >
                 <SkipForward size={22} fill="currentColor" />
               </button>
             </Tooltip>
 
-            <Tooltip text={"loop"}>
+            <Tooltip text={loop ? "Disable loop" : "Enable loop"}>
               <button
                 onClick={loopHandler}
                 className={`hover:scale-105 transition ${
@@ -327,7 +273,6 @@ const AudioPlayer = () => {
           </div>
         </div>
 
-        {/* Right Controls */}
         <div className="hidden lg:flex items-center justify-end gap-3">
           <Tooltip text="Lyrics">
             <button className="text-[#b3b3b3] hover:text-white cursor-pointer">
@@ -352,11 +297,7 @@ const AudioPlayer = () => {
               onClick={muteHandler}
               className="text-[#b3b3b3] hover:text-white cursor-pointer"
             >
-              {isMuted || volume === 0 ? (
-                <VolumeX size={18} />
-              ) : (
-                <Volume2 size={18} />
-              )}
+              {isMuted ? <VolumeX size={18} /> : <Volume2 size={18} />}
             </button>
           </Tooltip>
 
@@ -367,9 +308,10 @@ const AudioPlayer = () => {
             step="0.01"
             value={volume}
             onChange={volumeHandler}
-            className="w-[95px] h-[5px] accent-white hover:accent-[var(--spotify-green)] cursor-pointer"
+            className="w-24 accent-white cursor-pointer"
           />
-          <Tooltip text="Enter Full Screen">
+
+          <Tooltip text="Full screen">
             <button className="text-[#b3b3b3] hover:text-white cursor-pointer">
               <Maximize2 size={18} />
             </button>

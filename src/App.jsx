@@ -1,11 +1,11 @@
-import { Routes, Route, Navigate } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 
 import Home from "./routes/home";
-import Home2 from "./routes/home2";
 import Premium from "./routes/premium";
 import Search from "./routes/search";
 import Support from "./routes/support";
 import Download from "./routes/download";
+import PlaylistDetails from "./routes/PlaylistDetails";
 
 import Signup from "./auth/signup";
 import Login from "./auth/login";
@@ -20,38 +20,33 @@ function App() {
     <Routes>
       {!token ? (
         <>
-          {/* Guest user layout */}
           <Route element={<GuestLayout />}>
             <Route path="/" element={<Home />} />
             <Route path="/search" element={<Search />} />
+            <Route path="/playlist/:slug" element={<PlaylistDetails />} />
           </Route>
 
           <Route path="/support" element={<Support />} />
           <Route path="/download" element={<Download />} />
           <Route path="/premium" element={<Premium />} />
 
-          {/* Login / Signup pages */}
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
-
-          <Route path="*" element={<Navigate to="/" replace />} />
         </>
       ) : (
         <>
-          {/* Logged in user layout */}
           <Route element={<Layout />}>
-            <Route path="/" element={<Home2 />} />
+            <Route path="/" element={<Home />} />
             <Route path="/search" element={<Search />} />
+            <Route path="/playlist/:slug" element={<PlaylistDetails />} />
           </Route>
-          <Route path="/premium" element={<Premium />} />
+
           <Route path="/support" element={<Support />} />
           <Route path="/download" element={<Download />} />
+          <Route path="/premium" element={<Premium />} />
 
-          {/* Logged in user login/signup par na ja sake */}
-          <Route path="/login" element={<Navigate to="/" replace />} />
-          <Route path="/signup" element={<Navigate to="/" replace />} />
-
-          <Route path="*" element={<Navigate to="/" replace />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
         </>
       )}
     </Routes>
