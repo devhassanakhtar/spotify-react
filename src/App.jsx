@@ -1,6 +1,7 @@
 import { Routes, Route, Navigate } from "react-router-dom";
 
 import Home from "./routes/home";
+import Home2 from "./routes/home2";
 import Premium from "./routes/premium";
 import Search from "./routes/search";
 import Support from "./routes/support";
@@ -39,7 +40,7 @@ function App() {
         <>
           {/* Logged in user layout */}
           <Route element={<Layout />}>
-            <Route path="/" element={<Home />} />
+            <Route path="/" element={<Home2 />} />
             <Route path="/search" element={<Search />} />
           </Route>
           <Route path="/premium" element={<Premium />} />

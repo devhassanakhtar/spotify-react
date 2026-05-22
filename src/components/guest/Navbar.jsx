@@ -3,12 +3,13 @@ import MobileLogo from "../../assets/mobileLogo.png";
 import React, { useState } from "react";
 import { House, Search, ArrowDownCircle, Menu, X, Disc } from "lucide-react";
 import { Link } from "react-router-dom";
+import Tooltip from "../reuseable/Tooltip";
 
 const Navbar = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
-    <nav className="bg-black text-white px-2 sm:px-6 py-4 md:py-2 flex items-center justify-between sticky top-0 z-50 ">
+    <nav className="relative bg-black text-white px-2 sm:px-6 py-4 md:py-2 flex items-center justify-between sticky top-0 z-50 ">
       {/* LEFT SECTION */}
       <div className="hidden md:flex items-center flex-1 md:flex-initial">
         <div className="flex items-center space-x-2 cursor-pointer">
@@ -20,12 +21,15 @@ const Navbar = () => {
 
       {/* CENTER SECTION */}
       <div className="hidden md:flex items-center justify-center flex-1 max-w-[500px] mx-4 gap-2">
-        <Link
-          to="/"
-          className="bg-[var(--secondary-bg)] cursor-pointer p-3 rounded-full hover:scale-110 transition text-white flex items-center justify-center min-w-[48px] min-h-[48px]"
-        >
-          <House size={25} />
-        </Link>
+
+        <Tooltip text={"Home"}>
+          <Link
+            to="/"
+            className="bg-[var(--secondary-bg)] cursor-pointer p-3 rounded-full hover:scale-110 transition text-white flex items-center justify-center min-w-[48px] min-h-[48px]"
+          >
+            <House size={25} />
+          </Link>
+        </Tooltip>
 
         {/* Search Input Bar */}
         <div className="flex items-center bg-[var(--secondary-bg)] rounded-full px-4 py-3 flex-1 group hover:bg-[#2a2a2a] transition focus-within:ring-2 focus-within:ring-white min-h-[48px]">
@@ -73,7 +77,7 @@ const Navbar = () => {
           Download
         </Link>
         <div className="h-5 w-[1px] bg-[var(--text-secondary)]"></div>
-        
+
         <Link
           to="/installapp"
           className="hover:text-white hover:scale-105 duration-50 flex items-center gap-1.5"
@@ -131,7 +135,6 @@ const Navbar = () => {
         </button>
 
         <div className="flex flex-col text-[16px] space-y-4 text-lg font-bold">
-         
           <Link
             to="/login"
             className="text-xl hover:text-white duration-50 hover:-translate-x-1 transition-transform pb-5"

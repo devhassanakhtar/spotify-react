@@ -1,7 +1,6 @@
 import React from "react";
 import MainNavbar from "../components/ui/MainNavbar";
 import Sidebar from "../components/ui/sidebar";
-import Body from "../components/ui/Body";
 import { Outlet, useLocation } from "react-router-dom";
 import AudioPlayer from "../components/ui/AudioPlayer";
 
@@ -22,8 +21,8 @@ const Layout = () => {
           </div>
 
           <div className="flex-1 min-w-0 h-full">
-            <div className="h-full rounded-lg bg-[var(--primary-bg)] p-3 overflow-auto">
-              <Body />
+            <div className="h-full rounded-lg bg-[var(--primary-bg)] p-3 overflow-auto custom-scrollbar">
+              <Outlet />
             </div>
           </div>
         </main>

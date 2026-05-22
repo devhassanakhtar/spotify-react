@@ -12,7 +12,9 @@ import {
   ListMusic,
   MonitorSpeaker,
   Maximize2,
+  CirclePlus,
 } from "lucide-react";
+import Tooltip from "../reuseable/Tooltip";
 
 const AudioPlayer = () => {
   const songs = [
@@ -227,57 +229,78 @@ const AudioPlayer = () => {
               {currentSongData.artist}
             </p>
           </div>
-
-          <button className="hidden sm:flex w-5 h-5 rounded-full border border-[#b3b3b3] text-[#b3b3b3] items-center justify-center text-sm hover:text-white hover:border-white">
-            +
-          </button>
+          <Tooltip text={"Add to playlist"}>
+            <button className="hidden sm:flex  text-[#b3b3b3] items-center justify-center text-sm hover:text-white hover:border-white cursor-pointer">
+              <CirclePlus size={18} />
+            </button>
+          </Tooltip>
         </div>
 
         {/* Center Controls */}
         <div className="flex flex-col items-center justify-center gap-2 w-[40vw] max-w-[650px] min-w-[280px]">
           <div className="flex items-center gap-4">
-            <button
-              onClick={shuffleHandler}
-              className={`hover:scale-105 transition ${
-                shuffle ? "text-[var(--spotify-green)]" : "text-[#b3b3b3] hover:text-white"
-              }`}
+            <Tooltip
+              text={
+                Shuffle
+                  ? `Enable Shuffle for ${currentSongData.title}`
+                  : `Disable Shuffle for ${currentSongData.title}`
+              }
             >
-              <Shuffle size={18} />
-            </button>
+              <button
+                onClick={shuffleHandler}
+                className={`hover:scale-105 transition ${
+                  shuffle
+                    ? "text-[var(--spotify-green)]"
+                    : "text-[#b3b3b3] hover:text-white cursor-pointer"
+                }`}
+              >
+                <Shuffle size={18} />
+              </button>
+            </Tooltip>
 
-            <button
-              onClick={previousSongHandler}
-              className="text-[#b3b3b3] hover:text-white hover:scale-105 transition"
-            >
-              <SkipBack size={22} fill="currentColor" />
-            </button>
+            <Tooltip text={"Back"}>
+              <button
+                onClick={previousSongHandler}
+                className="text-[#b3b3b3] hover:text-white hover:scale-105 transition cursor-pointer"
+              >
+                <SkipBack size={22} fill="currentColor" />
+              </button>
+            </Tooltip>
 
-            <button
-              onClick={playPauseHandler}
-              className="w-9 h-9 rounded-full bg-white text-black flex items-center justify-center hover:scale-105 transition"
-            >
-              {isPlaying ? (
-                <Pause size={22} fill="black" />
-              ) : (
-                <Play size={22} fill="black" className="ml-[2px]" />
-              )}
-            </button>
+            <Tooltip text={isPlaying ? "Pause" : "Play"}>
+              <button
+                onClick={playPauseHandler}
+                className="w-9 h-9 rounded-full bg-white text-black flex items-center justify-center hover:scale-105 transition cursor-pointer"
+              >
+                {isPlaying ? (
+                  <Pause size={22} fill="black" />
+                ) : (
+                  <Play size={22} fill="black" className="ml-[2px]" />
+                )}
+              </button>
+            </Tooltip>
 
-            <button
-              onClick={nextSongHandler}
-              className="text-[#b3b3b3] hover:text-white hover:scale-105 transition"
-            >
-              <SkipForward size={22} fill="currentColor" />
-            </button>
+            <Tooltip text={"Next"}>
+              <button
+                onClick={nextSongHandler}
+                className="relative text-[#b3b3b3] hover:text-white hover:scale-105 transition cursor-pointer"
+              >
+                <SkipForward size={22} fill="currentColor" />
+              </button>
+            </Tooltip>
 
-            <button
-              onClick={loopHandler}
-              className={`hover:scale-105 transition ${
-                loop ? "text-[var(--spotify-green)]" : "text-[#b3b3b3] hover:text-white"
-              }`}
-            >
-              <Repeat size={18} />
-            </button>
+            <Tooltip text={"loop"}>
+              <button
+                onClick={loopHandler}
+                className={`hover:scale-105 transition ${
+                  loop
+                    ? "text-[var(--spotify-green)]"
+                    : "text-[#b3b3b3] hover:text-white cursor-pointer"
+                }`}
+              >
+                <Repeat size={18} />
+              </button>
+            </Tooltip>
           </div>
 
           <div className="flex items-center gap-3 w-full">
@@ -306,28 +329,36 @@ const AudioPlayer = () => {
 
         {/* Right Controls */}
         <div className="hidden lg:flex items-center justify-end gap-3">
-          <button className="text-[#b3b3b3] hover:text-white">
-            <Mic2 size={18} />
-          </button>
+          <Tooltip text="Lyrics">
+            <button className="text-[#b3b3b3] hover:text-white cursor-pointer">
+              <Mic2 size={18} />
+            </button>
+          </Tooltip>
 
-          <button className="text-[#b3b3b3] hover:text-white">
-            <ListMusic size={18} />
-          </button>
+          <Tooltip text="Queue">
+            <button className="text-[#b3b3b3] hover:text-white cursor-pointer">
+              <ListMusic size={18} />
+            </button>
+          </Tooltip>
 
-          <button className="text-[#b3b3b3] hover:text-white">
-            <MonitorSpeaker size={18} />
-          </button>
+          <Tooltip text="Connect to a device">
+            <button className="text-[#b3b3b3] hover:text-white cursor-pointer">
+              <MonitorSpeaker size={18} />
+            </button>
+          </Tooltip>
 
-          <button
-            onClick={muteHandler}
-            className="text-[#b3b3b3] hover:text-white"
-          >
-            {isMuted || volume === 0 ? (
-              <VolumeX size={18} />
-            ) : (
-              <Volume2 size={18} />
-            )}
-          </button>
+          <Tooltip text={isMuted ? "Unmute" : "Mute"}>
+            <button
+              onClick={muteHandler}
+              className="text-[#b3b3b3] hover:text-white cursor-pointer"
+            >
+              {isMuted || volume === 0 ? (
+                <VolumeX size={18} />
+              ) : (
+                <Volume2 size={18} />
+              )}
+            </button>
+          </Tooltip>
 
           <input
             type="range"
@@ -336,12 +367,13 @@ const AudioPlayer = () => {
             step="0.01"
             value={volume}
             onChange={volumeHandler}
-            className="w-[95px] accent-white hover:accent-[var(--spotify-green)] cursor-pointer"
+            className="w-[95px] h-[5px] accent-white hover:accent-[var(--spotify-green)] cursor-pointer"
           />
-
-          <button className="text-[#b3b3b3] hover:text-white">
-            <Maximize2 size={18} />
-          </button>
+          <Tooltip text="Enter Full Screen">
+            <button className="text-[#b3b3b3] hover:text-white cursor-pointer">
+              <Maximize2 size={18} />
+            </button>
+          </Tooltip>
         </div>
       </div>
     </div>

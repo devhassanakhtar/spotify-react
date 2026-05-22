@@ -39,6 +39,7 @@ const MainNavbar = () => {
         </Link>
 
         {/* Search Input Bar */}
+
         <div className="flex items-center bg-[var(--secondary-bg)] rounded-full px-4 py-3 flex-1 group hover:bg-[#2a2a2a] transition focus-within:ring-2 focus-within:ring-white min-h-[48px]">
           <label htmlFor="search">
             <Search
@@ -53,6 +54,7 @@ const MainNavbar = () => {
             placeholder="What do you want to play?"
             className="bg-transparent text-md text-white placeholder-[var(--text-secondary)] focus:outline-none w-full font-medium"
           />
+
           <div className="h-5 w-[1px] bg-[var(--text-secondary)] mx-3"></div>
           <Link to="/search">
             <Disc
@@ -112,7 +114,7 @@ const MainNavbar = () => {
       </div>
 
       {/* MOBILE MENU */}
-      
+
       <div
         className={`fixed top-0 right-0 h-full w-full bg-black z-50 transform ${mobileMenuOpen ? "translate-x-0" : "translate-x-full"} transition-transform duration-300 ease-in-out lg:hidden pt-20 px-10`}
       >
@@ -124,32 +126,55 @@ const MainNavbar = () => {
         </button>
 
         <div className="flex flex-col text-[16px] space-y-4 text-lg font-bold">
-          <Link to="/profile" className="flex items-center text-xl gap-3 hover:scale-105 duration-50 hover:-translate-x-1 transition-transform">
+          <Link
+            to="/profile"
+            className="flex items-center text-xl gap-3 hover:scale-105 duration-50 hover:-translate-x-1 transition-transform"
+          >
             View Account <ArrowUpRight />
           </Link>
-          <Link to="/profile" className="text-xl hover:text-white duration-50 hover:-translate-x-1 transition-transform">
+          <Link
+            to="/profile"
+            className="text-xl hover:text-white duration-50 hover:-translate-x-1 transition-transform"
+          >
             Profile
           </Link>
-          <Link to="/login" className="text-xl pb-4 hover:text-white duration-50 hover:-translate-x-1 transition-transform">
+          <Link
+            to="/login"
+            className="text-xl pb-4 hover:text-white duration-50 hover:-translate-x-1 transition-transform"
+          >
             Log Out
           </Link>
           <div className="h-[1.5px] w-5 bg-white"></div>{" "}
-          <Link to="/premium" className="pt-4 hover:text-white duration-50 hover:-translate-x-1 transition-transform">
+          <Link
+            to="/premium"
+            className="pt-4 hover:text-white duration-50 hover:-translate-x-1 transition-transform"
+          >
             Premium
           </Link>
-          <Link to="/support" className="hover:text-white duration-50 hover:-translate-x-1 transition-transform">
+          <Link
+            to="/support"
+            className="hover:text-white duration-50 hover:-translate-x-1 transition-transform"
+          >
             Support
           </Link>
-          <Link to="/download" className="font-medium hover:text-white duration-50 hover:-translate-x-1 transition-transform">
+          <Link
+            to="/download"
+            className="font-medium hover:text-white duration-50 hover:-translate-x-1 transition-transform"
+          >
             Download
           </Link>
-          <Link to="/privacy" className="font-medium hover:text-white duration-50 hover:-translate-x-1 transition-transform">
+          <Link
+            to="/privacy"
+            className="font-medium hover:text-white duration-50 hover:-translate-x-1 transition-transform"
+          >
             Privacy
           </Link>
-          <Link to="/privacy" className="font-medium hover:text-white duration-50 hover:-translate-x-1 transition-transform">
+          <Link
+            to="/privacy"
+            className="font-medium hover:text-white duration-50 hover:-translate-x-1 transition-transform"
+          >
             Term
           </Link>
-          
         </div>
       </div>
     </nav>
