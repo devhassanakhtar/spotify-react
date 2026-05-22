@@ -1,4 +1,4 @@
-import Afusic from "../assets/Artist-Images/Afusic.jfif";
+import Afusic from "../assets/Artist-Images/afusic.jfif"
 import Arijit from "../assets/Artist-Images/arijit.jfif";
 import Atif from "../assets/Artist-Images/atif.jfif";
 import Bayaan from "../assets/Artist-Images/baryaan.jfif";
