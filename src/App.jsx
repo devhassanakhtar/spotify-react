@@ -12,6 +12,7 @@ import Login from "./auth/login";
 
 import GuestLayout from "./layout/GuestLayout";
 import Layout from "./layout/Layout";
+import ArtistPlaylist from "./routes/ArtistPlaylist";
 
 function App() {
   const token = localStorage.getItem("token");
@@ -24,6 +25,7 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/search" element={<Search />} />
             <Route path="/playlist/:slug" element={<PlaylistDetails />} />
+            <Route path="/artist/:slug" element={<ArtistPlaylist />} />
           </Route>
 
           <Route path="/support" element={<Support />} />
@@ -39,6 +41,7 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/search" element={<Search />} />
             <Route path="/playlist/:slug" element={<PlaylistDetails />} />
+            <Route path="/artist/:slug" element={<ArtistPlaylist />} />
           </Route>
 
           <Route path="/support" element={<Support />} />

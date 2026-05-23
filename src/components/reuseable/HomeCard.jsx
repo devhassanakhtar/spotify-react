@@ -2,7 +2,12 @@ import React, { useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { Play, ChevronLeft, ChevronRight } from "lucide-react";
 
-import { playlistsData } from "../../data/playlistsData";
+import {
+  playlistsData,
+  ArtistPlayListData,
+  albumsData,
+  radioData,
+} from "../../data/playlistsData";
 import { artistsData } from "../../data/artistData";
 import { songsData } from "../../data/songsData";
 import { usePlayer } from "../../context/PlayerContext";
@@ -67,6 +72,7 @@ const HomeSection = ({ data }) => {
   const getCardLink = (card) => {
     if (data.type === "playlist") return `/playlist/${card.slug}`;
     if (data.type === "artist") return `/artist/${card.slug}`;
+    if (data.type === "playlist") return `/playlist/${card.slug}`;
     return `/playlist/${card.slug || card.id}`;
   };
 
@@ -113,7 +119,7 @@ const HomeSection = ({ data }) => {
 
         <Link
           to={data.href}
-          className="hidden sm:block text-sm text-[var(--text-secondary)] font-bold hover:underline"
+          className="hidden sm:block text-sm text-(text-secondary) font-bold hover:underline"
         >
           Show all
         </Link>
@@ -143,9 +149,8 @@ const HomeSection = ({ data }) => {
         onMouseMove={handleMouseMove}
         onMouseUp={handleMouseUp}
         onMouseLeave={handleMouseUp}
-        className={`flex gap-3 overflow-x-auto custom-scrollbar-trending select-none ${
-          isDragging ? "cursor-grabbing" : "cursor-grab"
-        }`}
+        className={`flex gap-3 overflow-x-auto custom-scrollbar-trending select-none ${isDragging ? "cursor-grabbing" : "cursor-grab"
+          }`}
       >
         {data.cards.map((card) => (
           <Link
@@ -159,9 +164,8 @@ const HomeSection = ({ data }) => {
                   src={card.image}
                   alt={getCardTitle(card)}
                   draggable="false"
-                  className={`w-full aspect-square object-cover pointer-events-none ${
-                    data.type === "artist" ? "rounded-full" : "rounded-md"
-                  }`}
+                  className={`w-full aspect-square object-cover pointer-events-none ${data.type === "artist" ? "rounded-full" : "rounded-md"
+                    }`}
                 />
 
                 {data.type !== "artist" && (
@@ -191,19 +195,21 @@ const HomeSection = ({ data }) => {
 
 const HomeCard = () => {
   const featuredPlaylists = playlistsData.filter(
-    (playlist) => playlist.isFeatured
+    (playlist) => playlist.isTrending
   );
 
-  const popularArtists = artistsData.filter((artist) => artist.isPopular);
+  const popularArtists = ArtistPlayListData.filter(
+    (artist) => artist.isArtistPlaylist
+  );
 
-  const albumSingles = songsData.filter((song) => song.isAlbumSingle);
+  const albumSingles = albumsData;
 
-  const radioSongs = songsData.filter((song) => song.isRadio);
+  const radioSongs = radioData;
 
   const sections = [
     {
       id: 1,
-      title: "Featured Playlists",
+      title: "Trending songs",
       href: "/",
       type: "playlist",
       cards: featuredPlaylists,
