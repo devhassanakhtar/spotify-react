@@ -148,7 +148,7 @@ const AudioPlayer = () => {
     <div className="fixed bottom-0 left-0 right-0 z-[9999] h-[88px] bg-black text-white px-3 sm:px-4 border-t border-[#181818]">
       <audio
         ref={audioRef}
-        src={currentSongData.src}
+        src={currentSongData.src || null}
         loop={loop}
         onEnded={songEndedHandler}
         onTimeUpdate={timeUpdateHandler}
@@ -191,11 +191,10 @@ const AudioPlayer = () => {
             <Tooltip text={shuffle ? "Disable shuffle" : "Enable shuffle"}>
               <button
                 onClick={shuffleHandler}
-                className={`hover:scale-105 transition ${
-                  shuffle
+                className={`hover:scale-105 transition ${shuffle
                     ? "text-[var(--spotify-green)]"
                     : "text-[#b3b3b3] hover:text-white cursor-pointer"
-                }`}
+                  }`}
               >
                 <Shuffle size={18} />
               </button>
@@ -238,11 +237,10 @@ const AudioPlayer = () => {
             <Tooltip text={loop ? "Disable loop" : "Enable loop"}>
               <button
                 onClick={loopHandler}
-                className={`hover:scale-105 transition ${
-                  loop
+                className={`hover:scale-105 transition ${loop
                     ? "text-[var(--spotify-green)]"
                     : "text-[#b3b3b3] hover:text-white cursor-pointer"
-                }`}
+                  }`}
               >
                 <Repeat size={18} />
               </button>

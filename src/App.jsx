@@ -6,6 +6,7 @@ import Search from "./routes/search";
 import Support from "./routes/support";
 import Download from "./routes/download";
 import PlaylistDetails from "./routes/PlaylistDetails";
+import Profile from "./routes/profile";
 
 import Signup from "./auth/signup";
 import Login from "./auth/login";
@@ -42,6 +43,7 @@ function App() {
             <Route path="/search" element={<Search />} />
             <Route path="/playlist/:slug" element={<PlaylistDetails />} />
             <Route path="/artist/:slug" element={<ArtistPlaylist />} />
+            <Route path="/profile" element={<Profile />} />
           </Route>
 
           <Route path="/support" element={<Support />} />

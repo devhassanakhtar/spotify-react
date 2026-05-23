@@ -1,5 +1,5 @@
 import Logo from "../../assets/logo.png";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   House,
   Search,
@@ -11,12 +11,39 @@ import {
   Users,
   ArrowUpRight,
   Settings,
-  Settings2,
+  ExternalLink,
 } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const MainNavbar = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [profileDropdownOpen, setProfileDropdownOpen] = useState(false);
+  const navigate = useNavigate();
+  const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+  const userEmail = currentUser?.email || "user@gmail.com";
+  const userFirstLetter = userEmail.charAt(0).toUpperCase();
+  const [profileImage, setProfileImage] = useState(
+    localStorage.getItem("profileImage") || ""
+  );
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("currentUser");
+    localStorage.removeItem("profileImage");
+    navigate("/");
+    window.location.reload();
+  };
+  useEffect(() => {
+    const updateProfileImage = () => {
+      setProfileImage(localStorage.getItem("profileImage") || "");
+    };
+
+    window.addEventListener("profileImageUpdated", updateProfileImage);
+
+    return () => {
+      window.removeEventListener("profileImageUpdated", updateProfileImage);
+    };
+  }, []);
 
   return (
     <nav className="bg-black text-white px-4 py-2 flex items-center justify-between sticky top-0 z-50 h-[64px]">
@@ -92,10 +119,53 @@ const MainNavbar = () => {
         >
           <Users size={18} />
         </Link>
-        <div className="bg-[var(--secondary-bg)] cursor-pointer w-12 h-12 rounded-full hover:scale-105 duration-50 text-black flex items-center justify-center">
-          <h1 className="bg-[#B49BC8] rounded-full w-8 h-8 flex items-center justify-center">
-            H
-          </h1>
+        <div className="relative">
+          <button
+            onClick={() => setProfileDropdownOpen(!profileDropdownOpen)}
+            className="bg-[var(--secondary-bg)] cursor-pointer w-12 h-12 rounded-full hover:scale-105 duration-50 text-black flex items-center justify-center"
+          >
+            {profileImage ? (
+              <img
+                src={profileImage}
+                alt="Profile"
+                className="w-8 h-8 rounded-full object-cover"
+              />
+            ) : (
+              <h1 className="bg-[#B49BC8] rounded-full w-8 h-8 flex items-center justify-center font-bold">
+                {userFirstLetter}
+              </h1>
+            )}
+          </button>
+
+          {profileDropdownOpen && (
+            <div className="absolute right-0 top-14 w-[325px] bg-[#282828] text-[#f2f2f2] shadow-2xl z-50 p-1">
+              <Link
+                to="/profile"
+                onClick={() => setProfileDropdownOpen(false)}
+                className="flex items-center justify-between px-3 py-3 text-sm font-semibold hover:bg-[#3e3e3e]"
+              >
+                <span>Account</span>
+                <ExternalLink size={18} />
+              </Link>
+
+              <Link
+                to="/profile"
+                onClick={() => setProfileDropdownOpen(false)}
+                className="block px-3 py-3 text-sm font-semibold hover:bg-[#3e3e3e]"
+              >
+                Profile
+              </Link>
+
+              <div className="h-[1px] bg-[#3e3e3e] my-1"></div>
+
+              <button
+                onClick={handleLogout}
+                className="w-full text-left px-3 py-3 text-sm font-semibold hover:bg-[#3e3e3e] cursor-pointer"
+              >
+                Log out
+              </button>
+            </div>
+          )}
         </div>
       </div>
 
@@ -138,12 +208,12 @@ const MainNavbar = () => {
           >
             Profile
           </Link>
-          <Link
-            to="/login"
-            className="text-xl pb-4 hover:text-white duration-50 hover:-translate-x-1 transition-transform"
+          <button
+            onClick={handleLogout}
+            className="text-left text-xl pb-4 hover:text-white duration-50 hover:-translate-x-1 transition-transform"
           >
             Log Out
-          </Link>
+          </button>
           <div className="h-[1.5px] w-5 bg-white"></div>{" "}
           <Link
             to="/premium"
