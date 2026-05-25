@@ -2,11 +2,26 @@ import Logo from "../../assets/logo.png";
 import MobileLogo from "../../assets/mobileLogo.png";
 import React, { useState } from "react";
 import { House, Search, ArrowDownCircle, Menu, X, Disc } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Tooltip from "../reuseable/Tooltip";
 
 const Navbar = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const navigate = useNavigate();
+  const [searchQuery, setSearchQuery] = useState("");
+
+  const handleSearchSubmit = (e) => {
+    e.preventDefault();
+
+    const cleanQuery = searchQuery.trim();
+
+    if (!cleanQuery) {
+      navigate("/search");
+      return;
+    }
+
+    navigate(`/search?q=${encodeURIComponent(cleanQuery)}`);
+  };
 
   return (
     <nav className="relative bg-black text-white px-2 sm:px-6 py-4 md:py-2 flex items-center justify-between sticky top-0 z-50 ">
@@ -32,28 +47,36 @@ const Navbar = () => {
         </Tooltip>
 
         {/* Search Input Bar */}
-        <div className="flex items-center bg-[var(--secondary-bg)] rounded-full px-4 py-3 flex-1 group hover:bg-[#2a2a2a] transition focus-within:ring-2 focus-within:ring-white min-h-[48px]">
-          <label htmlFor="search">
+        <form
+          onSubmit={handleSearchSubmit}
+          className="flex items-center bg-[var(--secondary-bg)] rounded-full px-4 py-3 flex-1 group hover:bg-[#2a2a2a] transition focus-within:ring-2 focus-within:ring-white min-h-[48px]"
+        >
+          <button type="submit">
             <Search
               className="text-[var(--text-secondary)] group-hover:text-white transition mr-3 hover:scale-110 cursor-pointer"
               size={25}
             />
-          </label>
+          </button>
+
           <input
             type="text"
-            id="search"
+            id="guest-search"
             name="search"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="What do you want to play?"
             className="bg-transparent text-md text-white placeholder-[var(--text-secondary)] focus:outline-none w-full font-medium"
           />
+
           <div className="h-5 w-[1px] bg-[var(--text-secondary)] mx-3"></div>
+
           <Link to="/search">
             <Disc
               className="text-[var(--text-secondary)] hover:scale-110 cursor-pointer transition"
               size={25}
             />
           </Link>
-        </div>
+        </form>
       </div>
 
       {/* RIGHT SECTION */}
