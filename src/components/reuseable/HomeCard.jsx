@@ -8,7 +8,7 @@ import {
   albumsData,
   radioData,
 } from "../../data/playlistsData";
-import { artistsData } from "../../data/artistData";
+// import { artistsData } from "../../data/artistData";
 import { songsData } from "../../data/songsData";
 import { usePlayer } from "../../context/PlayerContext";
 

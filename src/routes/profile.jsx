@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { Camera, User, Trash2 } from "lucide-react";
 
 const Profile = () => {
@@ -7,6 +7,7 @@ const Profile = () => {
     const [profileImage, setProfileImage] = useState(
         localStorage.getItem("profileImage") || ""
     );
+    const fileInputRef = useRef(null);
 
     const firstLetter = userEmail.charAt(0).toUpperCase();
     const username = userEmail.split("@")[0];
@@ -23,6 +24,11 @@ const Profile = () => {
             setProfileImage(reader.result);
 
             window.dispatchEvent(new Event("profileImageUpdated"));
+
+            // Important: input reset
+            if (fileInputRef.current) {
+                fileInputRef.current.value = "";
+            }
         };
 
         reader.readAsDataURL(file);
@@ -35,6 +41,11 @@ const Profile = () => {
         setProfileImage("");
 
         window.dispatchEvent(new Event("profileImageUpdated"));
+
+        // Important: input reset
+        if (fileInputRef.current) {
+            fileInputRef.current.value = "";
+        }
     };
 
     return (
@@ -62,6 +73,7 @@ const Profile = () => {
                                 </span>
 
                                 <input
+                                    ref={fileInputRef}
                                     type="file"
                                     accept="image/*"
                                     onChange={handleImageUpload}

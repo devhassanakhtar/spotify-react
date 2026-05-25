@@ -1,11 +1,13 @@
 import React from "react";
 import { useParams } from "react-router-dom";
+import { usePlaylist } from "../context/PlaylistContext";
 import {
   Clock,
   ListMusic,
   MoreHorizontal,
   PlusCircle,
   Play,
+  CheckCircle,
 } from "lucide-react";
 
 import {
@@ -19,6 +21,7 @@ import { usePlayer } from "../context/PlayerContext";
 const PlaylistDetails = () => {
   const { slug } = useParams();
   const { playPlaylist, currentSong } = usePlayer();
+  const { addToPlaylist, isSongSaved } = usePlaylist();
 
   const allPlaylists = [...playlistsData, ...albumsData, ...radioData];
 
@@ -94,60 +97,64 @@ const PlaylistDetails = () => {
 
         <div className="mt-2 pb-28" onClick={() => playPlaylist(playlist.songs, index)}>
           {playlist.songs.map((song, index) => {
-            const isCurrentSong = currentSong?.src === song.src;
+            const activeSong = currentSong?.id === song.id;
+            const saved = isSongSaved(song.id);
 
             return (
               <div
                 key={song.id}
                 onClick={() => playPlaylist(playlist.songs, index)}
-                className="grid grid-cols-[40px_1fr_70px] md:grid-cols-[40px_1.5fr_1fr_1fr_80px] items-center px-4 py-2 rounded-md hover:bg-[#2a2a2a] text-sm group cursor-pointer"
+                className="group grid grid-cols-[40px_1fr_120px_80px] items-center gap-4 px-4 py-2 rounded-md hover:bg-white/10 cursor-pointer"
               >
-                <div className="w-5">
-                  <span
-                    className={`group-hover:hidden ${isCurrentSong ? "text-[#1ed760]" : "text-[#b3b3b3]"
-                      }`}
-                  >
-                    {index + 1}
-                  </span>
-
-                  <Play
-                    size={16}
-                    fill={isCurrentSong ? "#1ed760" : "white"}
-                    className={`hidden group-hover:block ${isCurrentSong ? "text-[#1ed760]" : "text-white"
-                      }`}
-                  />
+                <div className="text-[#b3b3b3]">
+                  {activeSong ? (
+                    <Play size={18} fill="currentColor" />
+                  ) : (
+                    <span>{index + 1}</span>
+                  )}
                 </div>
 
                 <div className="flex items-center gap-3 min-w-0">
                   <img
                     src={song.image}
                     alt={song.title}
-                    className="w-10 h-10 object-cover rounded"
+                    className="w-10 h-10 rounded object-cover"
                   />
 
                   <div className="min-w-0">
-                    <h3
-                      className={`font-bold truncate ${isCurrentSong ? "text-[#1ed760]" : "text-white"
-                        }`}
-                    >
+                    <h3 className={activeSong ? "text-[var(--spotify-green)] font-semibold truncate" : "text-white font-semibold truncate"}>
                       {song.title}
                     </h3>
 
-                    <p className="text-[#b3b3b3] truncate">
+                    <p className="text-sm text-[#b3b3b3] truncate">
                       {song.artists?.join(", ") || song.artist}
                     </p>
                   </div>
                 </div>
 
-                <p className="hidden md:block text-[#b3b3b3] truncate">
+                <p className="hidden md:block text-sm text-[#b3b3b3] truncate">
                   {song.album}
                 </p>
 
-                <p className="hidden md:block text-[#b3b3b3]">
-                  {song.dateAdded}
-                </p>
+                <div className="flex items-center justify-end gap-4">
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      addToPlaylist(song);
+                    }}
+                    className="opacity-0 group-hover:opacity-100 text-[#b3b3b3] hover:text-white transition"
+                  >
+                    {saved ? (
+                      <CheckCircle size={20} className="text-[var(--spotify-green)]" />
+                    ) : (
+                      <PlusCircle size={20} />
+                    )}
+                  </button>
 
-                <p className="text-[#b3b3b3]">{song.duration}</p>
+                  <span className="text-sm text-[#b3b3b3]">
+                    {song.duration}
+                  </span>
+                </div>
               </div>
             );
           })}

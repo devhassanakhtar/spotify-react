@@ -25,10 +25,10 @@ const SidebarCard = () => {
   const sidebarData = [
     {
       id: 1,
-      heading: "Create your first playlist",
-      description: "It's easy, we'll help you",
-      href: "/playlist",
-      link: "Create Playlist",
+      heading: "My Playlist",
+      description: "Songs you saved with the plus icon",
+      href: "/my-playlist",
+      link: "Open Playlist",
     },
     {
       id: 2,

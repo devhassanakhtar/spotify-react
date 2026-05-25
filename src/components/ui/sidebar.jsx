@@ -32,21 +32,20 @@ const Sidebar = () => {
             <div ref={dropdownRef} className="relative">
               <h3
                 onClick={() => setOpen(!open)}
-                className=" flex items-center justify-between gap-2 bg-[var(--secondary-bg)] p-1 pr-5 rounded-full cursor-pointer hover:bg-[#333333] transition group"
+                className=" flex items-center justify-between gap-2 bg-[var(--secondary-bg)] p-1 lg:pr-5 rounded-full cursor-pointer hover:bg-[#333333] transition group"
               >
                 <Plus
                   size={20}
-                  className={`text-[var(--text-secondary)] group-hover:text-white transition-transform duration-300 ${
-                    open ? "rotate-45 text-white" : "rotate-0"
-                  }`}
+                  className={`text-[var(--text-secondary)] group-hover:text-white transition-transform duration-300 ${open ? "rotate-45 text-white" : "rotate-0"
+                    }`}
                 />
-                <span className="hidden xl:block text-sm font-bold">
+                <span className="hidden lg:block text-sm font-bold">
                   Create
                 </span>
               </h3>
               {open && (
                 <div className="absolute top-10 left-0 mt-2 w-max bg-[var(--black-bg-var-1)] text-white rounded-lg shadow-lg p-1 z-50 flex flex-col gap-1">
-                  <div className="flex items-center gap-3 p-2 cursor-pointer hover:bg-[#333333] rounded-md group">
+                  <Link to="/my-playlist"   className="flex items-center gap-3 p-2 cursor-pointer hover:bg-[#333333] rounded-md group">
                     <span className="p-3 rounded-full bg-[var(--black-bg-var-2)]">
                       <Music
                         size={25}
@@ -59,7 +58,7 @@ const Sidebar = () => {
                         Create a playlist with songs or episodes
                       </p>
                     </div>
-                  </div>
+                  </Link>
                   <div className="flex items-center gap-3 p-2 cursor-pointer hover:bg-[#333333] rounded-md group">
                     <span className="p-3 rounded-full bg-[var(--black-bg-var-2)]">
                       <Blend

@@ -33,7 +33,7 @@ const GuestSidebar = () => {
             <div ref={dropdownRef} className="relative">
                 <h3
                   onClick={() => setOpen(!open)}
-                  className=" flex items-center justify-between gap-2 bg-[var(--secondary-bg)] p-1 lg:pr-5 rounded-full cursor-pointer hover:bg-[#333333] transition group"
+                  className=" flex items-center justify-between gap-2 bg-[var(--secondary-bg)] p-1 pr-5 rounded-full cursor-pointer hover:bg-[#333333] transition group"
                 >
                   <Plus
                     size={20}

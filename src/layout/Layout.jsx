@@ -15,8 +15,8 @@ const Layout = () => {
           <MainNavbar />
         </div>
 
-        <main className="flex gap-5 px-4 py-3 text-white h-[calc(100vh-80px)]">
-          <div className="hidden md:block w-[400px] shrink-0 h-full">
+        <main className="flex gap-5 px-2 sm:px-4 sm:py-3  text-white h-[calc(100vh-80px)]">
+          <div className="hidden md:block lg:w-[400px] md:w-[250px] shrink-0 h-full">
             <Sidebar />
           </div>
 

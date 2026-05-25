@@ -16,6 +16,7 @@ import {
 } from "lucide-react";
 import Tooltip from "../reuseable/Tooltip";
 import { usePlayer } from "../../context/PlayerContext";
+import { usePlaylist } from "../../context/PlaylistContext";
 
 const AudioPlayer = () => {
   const {
@@ -40,6 +41,7 @@ const AudioPlayer = () => {
 
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
+  const { addToPlaylist, isSongSaved } = usePlaylist();
 
   const defaultSong = {
     title: "Choose a song",
@@ -49,6 +51,7 @@ const AudioPlayer = () => {
   };
 
   const currentSongData = currentSong || defaultSong;
+  const currentSongSaved = currentSong ? isSongSaved(currentSong.id) : false;
 
   useEffect(() => {
     if (!audioRef.current) return;
@@ -179,8 +182,18 @@ const AudioPlayer = () => {
             </p>
           </div>
 
-          <Tooltip text={"Add to playlist"}>
-            <button className="hidden sm:flex text-[#b3b3b3] items-center justify-center text-sm hover:text-white hover:border-white cursor-pointer">
+          <Tooltip text={currentSongSaved ? "Already added" : "Add to playlist"}>
+            <button
+              onClick={() => {
+                if (!currentSong) return;
+                addToPlaylist(currentSong);
+              }}
+              disabled={!currentSong || currentSongSaved}
+              className={`hidden sm:flex items-center justify-center text-sm cursor-pointer ${currentSongSaved
+                  ? "text-[var(--spotify-green)]"
+                  : "text-[#b3b3b3] hover:text-white"
+                } disabled:cursor-not-allowed`}
+            >
               <CirclePlus size={18} />
             </button>
           </Tooltip>
@@ -192,8 +205,8 @@ const AudioPlayer = () => {
               <button
                 onClick={shuffleHandler}
                 className={`hover:scale-105 transition ${shuffle
-                    ? "text-[var(--spotify-green)]"
-                    : "text-[#b3b3b3] hover:text-white cursor-pointer"
+                  ? "text-[var(--spotify-green)]"
+                  : "text-[#b3b3b3] hover:text-white cursor-pointer"
                   }`}
               >
                 <Shuffle size={18} />
@@ -238,8 +251,8 @@ const AudioPlayer = () => {
               <button
                 onClick={loopHandler}
                 className={`hover:scale-105 transition ${loop
-                    ? "text-[var(--spotify-green)]"
-                    : "text-[#b3b3b3] hover:text-white cursor-pointer"
+                  ? "text-[var(--spotify-green)]"
+                  : "text-[#b3b3b3] hover:text-white cursor-pointer"
                   }`}
               >
                 <Repeat size={18} />
