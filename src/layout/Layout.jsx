@@ -3,6 +3,7 @@ import MainNavbar from "../components/ui/MainNavbar";
 import Sidebar from "../components/ui/sidebar";
 import { Outlet, useLocation } from "react-router-dom";
 import AudioPlayer from "../components/ui/AudioPlayer";
+import MobileNavbar from "../components/ui/MobileNavbar";
 
 const Layout = () => {
   const location = useLocation();
@@ -27,6 +28,7 @@ const Layout = () => {
           </div>
         </main>
         <AudioPlayer />
+        <MobileNavbar />
       </div>
     </div>
   );

@@ -148,7 +148,7 @@ const AudioPlayer = () => {
   const progressPercent = duration ? (currentTime / duration) * 100 : 0;
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 z-[9999] h-[88px] bg-black text-white px-3 sm:px-4 border-t border-[#181818]">
+    <div className="fixed bottom-16 md:bottom-0 left-0 right-0 z-[9999] h-[88px] bg-black text-white px-3 sm:px-4 border-t border-[#181818]">
       <audio
         ref={audioRef}
         src={currentSongData.src || null}

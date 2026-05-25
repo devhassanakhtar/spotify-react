@@ -4,6 +4,7 @@ import { Outlet, useLocation } from "react-router-dom";
 import Navbar from "../components/guest/Navbar";
 import GuestSidebar from "../components/guest/GuestSidebar";
 import SignUpBar from "../components/ui/SignUpBar";
+import MobileNavbar from "../components/ui/MobileNavbar";
 
 const GuestLayout = () => {
   const location = useLocation();
@@ -26,6 +27,7 @@ const GuestLayout = () => {
           </div>
         </div>
       </main>
+      <MobileNavbar />
 
       <footer className="fixed left-0 bottom-0 w-full text-white z-[9999] text-white">
         <SignUpBar />

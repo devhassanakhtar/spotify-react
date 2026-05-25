@@ -11,6 +11,7 @@ import {
 // import { artistsData } from "../../data/artistData";
 import { songsData } from "../../data/songsData";
 import { usePlayer } from "../../context/PlayerContext";
+import MobileNavbar from "../ui/MobileNavbar";
 
 const HomeSection = ({ data }) => {
   const scrollRef = useRef(null);
@@ -244,6 +245,8 @@ const HomeCard = () => {
         .map((section) => (
           <HomeSection key={section.id} data={section} />
         ))}
+
+        <MobileNavbar />
     </div>
   );
 };
