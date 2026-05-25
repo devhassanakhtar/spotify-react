@@ -238,18 +238,23 @@ const MainNavbar = () => {
         <div className="flex flex-col text-[16px] space-y-4 text-lg font-bold">
           <Link
             to="/profile"
+            onClick={() => setMobileMenuOpen(false)}
             className="flex items-center text-xl gap-3 hover:scale-105 duration-50 hover:-translate-x-1 transition-transform"
           >
             View Account <ArrowUpRight />
           </Link>
           <Link
             to="/profile"
+            onClick={() => setMobileMenuOpen(false)}
             className="text-xl hover:text-white duration-50 hover:-translate-x-1 transition-transform"
           >
             Profile
           </Link>
           <button
-            onClick={handleLogout}
+            onClick={() => {
+              setMobileMenuOpen(false);
+              handleLogout();
+            }}
             className="text-left text-xl pb-4 hover:text-white duration-50 hover:-translate-x-1 transition-transform"
           >
             Log Out
@@ -257,30 +262,35 @@ const MainNavbar = () => {
           <div className="h-[1.5px] w-5 bg-white"></div>{" "}
           <Link
             to="/premium"
+            onClick={() => setMobileMenuOpen(false)}
             className="pt-4 hover:text-white duration-50 hover:-translate-x-1 transition-transform"
           >
             Premium
           </Link>
           <Link
             to="/support"
+            onClick={() => setMobileMenuOpen(false)}
             className="hover:text-white duration-50 hover:-translate-x-1 transition-transform"
           >
             Support
           </Link>
           <Link
             to="/download"
+            onClick={() => setMobileMenuOpen(false)}
             className="font-medium hover:text-white duration-50 hover:-translate-x-1 transition-transform"
           >
             Download
           </Link>
           <Link
             to="/privacy"
+            onClick={() => setMobileMenuOpen(false)}
             className="font-medium hover:text-white duration-50 hover:-translate-x-1 transition-transform"
           >
             Privacy
           </Link>
           <Link
             to="/privacy"
+            onClick={() => setMobileMenuOpen(false)}
             className="font-medium hover:text-white duration-50 hover:-translate-x-1 transition-transform"
           >
             Term

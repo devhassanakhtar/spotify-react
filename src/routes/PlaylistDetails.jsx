@@ -104,8 +104,7 @@ const PlaylistDetails = () => {
               <div
                 key={song.id}
                 onClick={() => playPlaylist(playlist.songs, index)}
-                className="group grid grid-cols-[40px_1fr_120px_80px] items-center gap-4 px-4 py-2 rounded-md hover:bg-white/10 cursor-pointer"
-              >
+                className="group grid grid-cols-[32px_minmax(0,1fr)_70px] md:grid-cols-[40px_minmax(0,1.8fr)_minmax(120px,1.1fr)_minmax(120px,1fr)_80px] gap-3 md:gap-4 items-center px-3 md:px-5 py-3 rounded-md hover:bg-white/10 cursor-pointer">
                 <div className="text-[#b3b3b3]">
                   {activeSong ? (
                     <Play size={18} fill="currentColor" />
@@ -118,7 +117,7 @@ const PlaylistDetails = () => {
                   <img
                     src={song.image}
                     alt={song.title}
-                    className="w-10 h-10 rounded object-cover"
+                    className="w-10 h-10 md:w-11 md:h-11 rounded object-cover shrink-0"
                   />
 
                   <div className="min-w-0">

@@ -160,8 +160,8 @@ const AudioPlayer = () => {
         onPause={() => setIsPlaying(false)}
       />
 
-      <div className="h-full grid grid-cols-[1fr_auto_1fr] items-center gap-4">
-        <div className="flex items-center gap-3 min-w-0">
+      <div className="h-full w-full grid grid-cols-1 md:grid-cols-[1fr_auto_1fr] items-center">
+        <div className="hidden md:flex items-center gap-3 min-w-0">
           {currentSongData.image ? (
             <img
               src={currentSongData.image}
@@ -190,8 +190,8 @@ const AudioPlayer = () => {
               }}
               disabled={!currentSong || currentSongSaved}
               className={`hidden sm:flex items-center justify-center text-sm cursor-pointer ${currentSongSaved
-                  ? "text-[var(--spotify-green)]"
-                  : "text-[#b3b3b3] hover:text-white"
+                ? "text-[var(--spotify-green)]"
+                : "text-[#b3b3b3] hover:text-white"
                 } disabled:cursor-not-allowed`}
             >
               <CirclePlus size={18} />
@@ -199,13 +199,13 @@ const AudioPlayer = () => {
           </Tooltip>
         </div>
 
-        <div className="flex flex-col items-center justify-center gap-2 w-[40vw] max-w-[650px] min-w-[280px]">
-          <div className="flex items-center gap-4">
+        <div className="flex flex-col items-center justify-center gap-2 w-[92vw] sm:w-[80vw] md:w-[40vw] max-w-[650px] min-w-0">
+          <div className="flex items-center gap-4 sm:gap-5">
             <Tooltip text={shuffle ? "Disable shuffle" : "Enable shuffle"}>
               <button
                 onClick={shuffleHandler}
-                className={`hover:scale-105 transition ${shuffle
-                  ? "text-[var(--spotify-green)]"
+                className={`hidden sm:block hover:scale-105 transition ${shuffle
+                  ? "text-(--spotify-green)"
                   : "text-[#b3b3b3] hover:text-white cursor-pointer"
                   }`}
               >
@@ -250,7 +250,7 @@ const AudioPlayer = () => {
             <Tooltip text={loop ? "Disable loop" : "Enable loop"}>
               <button
                 onClick={loopHandler}
-                className={`hover:scale-105 transition ${loop
+                className={`hidden sm:block hover:scale-105 transition ${loop
                   ? "text-[var(--spotify-green)]"
                   : "text-[#b3b3b3] hover:text-white cursor-pointer"
                   }`}
@@ -260,8 +260,8 @@ const AudioPlayer = () => {
             </Tooltip>
           </div>
 
-          <div className="flex items-center gap-3 w-full">
-            <span className="text-xs text-[#b3b3b3] w-10 text-right">
+          <div className="flex items-center gap-2 sm:gap-3 w-full">
+            <span className="text-xs text-[#b3b3b3] w-8 sm:w-10 text-right">
               {formatTime(currentTime)}
             </span>
 
@@ -278,7 +278,7 @@ const AudioPlayer = () => {
               </div>
             </div>
 
-            <span className="text-xs text-[#b3b3b3] w-10">
+            <span className="text-xs text-[#b3b3b3] w-8 sm:w-10">
               {formatTime(duration)}
             </span>
           </div>
